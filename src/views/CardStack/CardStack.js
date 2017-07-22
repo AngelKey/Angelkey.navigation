@@ -416,10 +416,6 @@ class CardStack extends Component {
   _getTransitionConfig = () => {
     const isModal = this.props.mode === 'modal';
 
-    const { transitionInteractivityThreshold } = this._getScreenDetails(
-      scene
-    ).options;
-
     /* $FlowFixMe */
     return TransitionConfigs.getTransitionConfig(
       this.props.transitionConfig,
@@ -437,6 +433,10 @@ class CardStack extends Component {
     const SceneComponent = this.props.router.getComponentForRouteName(
       scene.route.routeName
     );
+
+    const { transitionInteractivityThreshold } = this._getScreenDetails(
+      scene
+    ).options;
 
     return (
       <Card
