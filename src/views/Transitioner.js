@@ -246,7 +246,6 @@ class Transitioner extends React.Component<*, Props, State> {
           _queuedTransition.nextScenes,
           _queuedTransition.indexHasChanged
         );
-        this._queuedTransition = null;
       } else {
         this._isTransitionRunning = false;
       }
