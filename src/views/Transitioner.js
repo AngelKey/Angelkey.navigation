@@ -240,7 +240,7 @@ class Transitioner extends React.Component<*, Props, State> {
       this.props.onTransitionEnd &&
         this.props.onTransitionEnd(this._transitionProps, prevTransitionProps);
       if (this._queuedTransition.length) {
-	const _queuedTransition = this._queuedTransition.shift();
+        const _queuedTransition = this._queuedTransition.shift();
         this._startTransition(
           _queuedTransition.nextProps,
           _queuedTransition.nextScenes,
