@@ -54,11 +54,11 @@ class Transitioner extends React.Component<*, Props, State> {
   _transitionProps: NavigationTransitionProps;
   _isMounted: boolean;
   _isTransitionRunning: boolean;
-  _queuedTransition: ?{
+  _queuedTransition: Array<{
     nextProps: Props,
     nextScenes: Array<NavigationScene>,
     indexHasChanged: boolean,
-  };
+  }>;
 
   props: Props;
   state: State;
@@ -87,7 +87,7 @@ class Transitioner extends React.Component<*, Props, State> {
     this._transitionProps = buildTransitionProps(props, this.state);
     this._isMounted = false;
     this._isTransitionRunning = false;
-    this._queuedTransition = null;
+    this._queuedTransition = [];
   }
 
   componentWillMount(): void {
@@ -117,7 +117,7 @@ class Transitioner extends React.Component<*, Props, State> {
     const indexHasChanged =
       nextProps.navigation.state.index !== this.props.navigation.state.index;
     if (this._isTransitionRunning) {
-      this._queuedTransition = { nextProps, nextScenes, indexHasChanged };
+      this._queuedTransition.push({ nextProps, nextScenes, indexHasChanged });
       return;
     }
 
@@ -239,11 +239,12 @@ class Transitioner extends React.Component<*, Props, State> {
     this.setState(nextState, () => {
       this.props.onTransitionEnd &&
         this.props.onTransitionEnd(this._transitionProps, prevTransitionProps);
-      if (this._queuedTransition) {
+      if (this._queuedTransition.length) {
+	const _queuedTransition = this._queuedTransition.shift();
         this._startTransition(
-          this._queuedTransition.nextProps,
-          this._queuedTransition.nextScenes,
-          this._queuedTransition.indexHasChanged
+          _queuedTransition.nextProps,
+          _queuedTransition.nextScenes,
+          _queuedTransition.indexHasChanged
         );
         this._queuedTransition = null;
       } else {

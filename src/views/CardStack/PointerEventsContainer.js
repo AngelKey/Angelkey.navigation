@@ -97,7 +97,7 @@ export default function create(Component: ReactClass<*>): ReactClass<*> {
       }
 
       const offset = position.__getAnimatedValue() - navigation.state.index;
-      if (Math.abs(offset) > MIN_POSITION_OFFSET) {
+      if (Math.abs(offset) > (this.props.interactivityThreshold || MIN_POSITION_OFFSET)) {
         // The positon is still away from scene's index.
         // Scene's children should not receive touches until the position
         // is close enough to scene's index.
