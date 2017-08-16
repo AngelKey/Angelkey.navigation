@@ -440,7 +440,7 @@ class CardStack extends Component {
         key={`card_${scene.key}`}
         style={[style, this.props.cardStyle]}
         scene={scene}
-        interactivityThreshold={this._getScreenDetails(scene).options.interactivityThreshold}
+        interactivityThreshold={this._getScreenDetails(scene).options.transitionInteractivityThreshold}
       >
         {this._renderInnerScene(SceneComponent, scene)}
       </Card>
