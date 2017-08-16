@@ -435,9 +435,6 @@ export type NavigationTransitionProps = {
   scene: NavigationScene,
   index: number,
 
-  // The progress value at which the scene will accept pointer events.
-  interactivityThreshold?: number,
-
   screenProps?: {},
 };
 
